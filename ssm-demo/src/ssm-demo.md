@@ -326,3 +326,16 @@
 
 ---
 本文代码: [此处](https://github.com/zhanggaoyu/springMvc-study)的 ssm-demo
+SSM整合依赖包括:
+1. spring依赖(基础包, aop, 切面, 事务, jdbc)
+2. springMvc依赖(webMvc)
+3. mybatis依赖(mybatis包, mybatis-spring整合包)
+4. 数据库驱动包(mysql)
+5. servlet, jsp, jstl支持
+6. 工具包(酌情删减)
+   1. 文件上传(fileupload)
+   2. 连接池(c3p0)
+   3. json转化(jackson)\
+   4. 跨服务器文件传输依赖(jersey-client: 已注释)
+   5. github分页(pagehelper)
+7. 测试和日志打印

@@ -322,7 +322,8 @@
         * ```@SessionAttributes(value = "user", types = User.class)```
       * 属性:
         1. names(value): 用于指定存入的属性名称, 数组类型
-        2. type: 用于指定存入的数据类型, 数组类型
+        2. type: 用于指定存入的数据类型, 数组类型  
+        
       ```
       @RequestMapping("/testSessionAttributesPut")
       public String testSessionAttributesPut(Model model) {
