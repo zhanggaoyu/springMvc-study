@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>常用注解</title>
+</head>
+<body>
+<fieldset>
+  <legend>@RequestParam注解</legend>
+  <form action="anno/testRequestParam" method="post">
+    <label for="name04">name: </label><input type="text" name="username" id="name04"><br>
+    <label for="age04">age: </label><input type="number" name="age" id="age04"><br>
+    <button type="submit">submit</button>
+  </form>
+</fieldset>
+<fieldset>
+  <legend>@RequestBody</legend>
+  <form action="anno/testRequestBody" method="post">
+    <label for="name04">name: </label><input type="text" name="username" id="name04"><br>
+    <label for="age04">age: </label><input type="number" name="age" id="age04"><br>
+    <button type="submit">submit</button>
+  </form>
+</fieldset>
+<div><a href="anno/testPathVariable/10">PathVariable</a></div>
+<div><a href="anno/testRequestHeader">RequestHeader</a></div>
+<div><a href="anno/testCookieValue">CookieValue</a></div>
+<fieldset>
+  <legend>@ModelAttribute</legend>
+  <form action="anno/testModelAttribute" method="post">
+    <label for="name05">name: </label><input type="text" name="name" id="name05"><br>
+    <label for="age05">age: </label><input type="number" name="age" id="age05"><br>
+    <button type="submit">submit</button>
+  </form>
+</fieldset>
+<div><a href="anno/testSessionAttributesPut">SessionAttributesPut</a></div>
+<div><a href="anno/testSessionAttributesGet">SessionAttributesGet</a></div>
+<div><a href="anno/testSessionAttributesClean">SessionAttributesClean</a></div>
+</body>
+</html>

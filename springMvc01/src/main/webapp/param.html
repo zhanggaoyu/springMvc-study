@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>testRequestMapping</title>
+</head>
+<body>
+<fieldset>
+  <legend>param01-基本类型</legend>
+  <form action="param/param01" method="post">
+    <label for="name01">name: </label><input type="text" name="name" id="name01"><br>
+    <label for="age01">age: </label><input type="number" name="age" id="age01"><br>
+    <button type="submit">submit</button>
+  </form>
+</fieldset>
+<fieldset>
+  <legend>param02-对象</legend>
+  <form action="param/param02" method="post">
+    <label for="name02">name: </label><input type="text" name="name" id="name02"><br>
+    <label for="age02">age: </label><input type="number" name="age" id="age02"><br>
+    <label for="addr02">addr: </label><input type="text" name="address.name" id="addr02"><br>
+    <button type="submit">submit</button>
+  </form>
+</fieldset>
+<fieldset>
+  <legend>param03-对象中的list和map</legend>
+  <form action="param/param02" method="post">
+    <label for="name0301">name: </label><input type="text" name="list[0].name" id="name0301"><br>
+    <label for="age0301">age: </label><input type="number" name="list[0].age" id="age0301"><br>
+    <label for="name0302">name: </label><input type="text" name="list[1].name" id="name0302"><br>
+    <label for="age0302">age: </label><input type="number" name="list[1].age" id="age0302"><br>
+    <label for="name0303">name: </label><input type="text" name="map['user1'].name" id="name0303"><br>
+    <label for="age0303">age: </label><input type="number" name="map['user1'].age" id="age0303"><br>
+    <label for="name0304">name: </label><input type="text" name="map['user2'].name" id="name0304"><br>
+    <label for="age0304">age: </label><input type="number" name="map['user2'].age" id="age0304"><br>
+    <button type="submit">submit</button>
+  </form>
+</fieldset>
+<a href="param/param03">to param03</a>
+</body>
+</html>

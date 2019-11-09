@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 开启注解扫描并排除 @Controller 注解 -->
+    <!-- TODO -->
+    <context:component-scan base-package="cn.ann">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <!-- 加载外部 properties 文件(该文件用于存储数据库连接信息) -->
+    <context:property-placeholder location="classpath:database.properties"/>
+
+    <!-- 配置数据|连接池 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${mysql.driver}"/>
+        <property name="jdbcUrl" value="${mysql.url}"/>
+        <property name="user" value="${mysql.username}"/>
+        <property name="password" value="${mysql.password}"/>
+    </bean>
+
+    <!-- 配置SqlSessionFactory -->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- MyBatis中的别名 -->
+        <!-- TODO -->
+        <property name="typeAliasesPackage" value="cn.ann.beans"/>
+        <!-- MyBatis中的setting标签配置, 按需要配置即可 -->
+        <!-- TODO -->
+        <property name="configuration">
+            <bean class="org.apache.ibatis.session.Configuration">
+                <!-- 配置数据库字段名转驼峰 -->
+                <property name="mapUnderscoreToCamelCase" value="true"/>
+                <!-- 配置mybatis怎么处理null值 -->
+                <property name="jdbcTypeForNull" value="NULL"/>
+                <!-- 配置懒加载 -->
+                <property name="lazyLoadingEnabled" value="true"/>
+                <property name="aggressiveLazyLoading" value="false"/>
+                <property name="lazyLoadTriggerMethods" value=""/>
+                <!-- 配置日志 -->
+                <property name="logImpl" value="org.apache.ibatis.logging.log4j2.Log4j2Impl"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- 配置mapper文件的路径, 配置了该bean就不用写Mapper的实现了 -->
+    <!-- TODO -->
+    <bean id="mapperScan" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.ann.mapper"/>
+    </bean>
+
+    <!-- 配置事务 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <!-- TODO -->
+            <tx:method name="*"/>
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 配置事务到切面 -->
+    <aop:config>
+        <!-- TODO -->
+        <aop:pointcut id="txPc" expression="execution(* cn.ann.service..*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPc"/>
+    </aop:config>
+
+</beans>
