@@ -18,7 +18,7 @@ import java.util.Map;
 @SessionAttributes(value = "user", types = User.class)
 public class AnnoController {
 
-    @RequestMapping("/**/testAntPath")
+    @RequestMapping("/testAntPath")
 //    @RequestMapping("/**testAntPath")
     public String testAntPath() {
         System.out.println("testAntPath run...");

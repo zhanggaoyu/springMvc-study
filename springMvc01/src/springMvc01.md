@@ -157,7 +157,7 @@
 6. @RequestMapping解析:
    1. 位置: 可以作用在类上或方法上(便于分模块开发)
    2. 属性: 
-      * value(path): 两个属性作用一样, 用于指定映射路径
+      * value(path): 两个属性作用一样, 用于指定映射路径, 需要以 '/' 开头
       * method: 用于指定允许接受的请求方式
       * params: 用于指定限制请求参数的条件. 支持简单的表达式, 但是要求请求参数的key和value必须和配置的一模一样
         * {"name"}: 参数名必须是name
@@ -175,8 +175,7 @@
           * /springMvc01/anno/\*\*/testRequestHeader ====> /springMvc01/anno/12/a/sd/fa/sd/啊/啊啊/testAntPath
           * /springMvc01/anno/\*\*testRequestHeader ====> 这种写法是错误的
         - ant风格的一个坑: 
-          * ![]() /* TODO */
-          * 在向 requestMapping 中添加ant风格的url时, '?', '\*', '\*\*'的前面或后面不能是空的, '\*\*' 必须包裹在两个'\\'中间
+          * 在向 requestMapping 中添加ant风格的url时, '?', '\*'需要放在'/'后面, '\*\*' 必须包裹在两个'/'中间
 7. 参数绑定: 方法的参数列表里面的参数
    1. 基本类型和String等
       * post表单提交的name和参数名一致即可
