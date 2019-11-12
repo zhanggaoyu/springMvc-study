@@ -24,7 +24,7 @@ public class ExceptionResolver implements HandlerExceptionResolver {
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) {
         System.out.println("出异常了");
         System.out.println(o.getClass());
-
+        e.printStackTrace();
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:/error.jsp");
 

@@ -35,4 +35,11 @@ public class ParamController {
         return "success";
     }
 
+    @RequestMapping("/testConverter")
+    public String testConverter(User user) {
+        System.out.println(user);
+
+        return "success";
+    }
+
 }

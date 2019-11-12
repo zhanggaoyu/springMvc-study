@@ -1,0 +1,44 @@
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>文件上传</title>
+</head>
+<body>
+<fieldset>
+  <legend>springMvc文件上传</legend>
+  <form action="testFileupload" method="post" enctype="multipart/form-data">
+    file: <input type="file" name="upload"/><br>
+    <button type="submit">提交</button>
+  </form>
+</fieldset>
+<fieldset>
+  <legend>跨服务器文件上传</legend>
+  <form action="testFileupload2Server" method="post" enctype="multipart/form-data">
+    file: <input type="file" name="upload"/><br>
+    <button type="submit">提交</button>
+  </form>
+</fieldset>
+<button type="button" onclick="getFiles()">获取文件列表</button>
+<div id="aList"></div>
+</body>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    function getFiles() {
+        let a = "";
+        $.ajax({
+            async: false,
+            url: "getFileList",
+            dataType: "json",
+            success: (data) => {
+                console.log(data);
+                for (let i = 0; i < data.length; i++){
+                    console.log(data[i]);
+                    a += `<a href="testFileDownload?filename=${data[i]}">file${i}</a><br>`;
+                }
+            }
+        });
+        console.log(a);
+        document.querySelector("#aList").innerHTML = a;
+    }
+</script>
+</html>

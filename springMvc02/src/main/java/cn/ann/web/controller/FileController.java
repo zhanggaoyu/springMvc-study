@@ -5,12 +5,14 @@ import com.sun.jersey.api.client.WebResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
+import java.util.*;
 
 /**
  * create by 88475 with IntelliJ IDEA on 2019-11-7 16:36
@@ -52,6 +54,58 @@ public class FileController {
 
         return "redirect:/success.jsp";
     }
+
+    @RequestMapping("/getFileList")
+    @ResponseBody
+    public String[] getFileList(HttpServletRequest request) throws IOException {
+        String realpath = request.getSession().getServletContext().getRealPath("//upload");
+        File file = new File(realpath);
+        String[] list = null;
+        if (file.isDirectory()) {
+            list = file.list();
+        }
+
+        return list;
+    }
+
+    @RequestMapping("/testFileDownload")
+    public void testFileDownload(HttpServletRequest request, HttpServletResponse response, String filename) {
+        InputStream fis = null;
+        OutputStream out = null;
+        try {
+            String realpath = request.getSession().getServletContext().getRealPath("//upload");
+            File file = new File(realpath, filename);
+
+            response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, "UTF-8"));
+            response.addHeader("Content-Length", file.length() + "");
+            response.setContentType("application/x-msdownload");//MIME
+
+            fis = new BufferedInputStream(new FileInputStream(file));
+            out = new BufferedOutputStream(response.getOutputStream());
+            byte[] buff = new byte[1024];
+            int read = -1;
+            while ((read = fis.read(buff)) != -1) {
+                out.write(buff, 0, read);
+                out.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fis != null)
+                    fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (out != null)
+                    out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 }
 
